@@ -4,6 +4,7 @@ import numpy as np
 import os
 import pickle
 from datetime import datetime
+from scipy.spatial import distance
 
 app = Flask(__name__)
 KNOWN_FACES_DIR = 'known_faces'
@@ -47,25 +48,30 @@ def recognize():
 
     image = face_recognition.load_image_file(filepath)
     encodings = face_recognition.face_encodings(image)
-
+    print(f"Faces detected: {len(encodings)}")
+    
     if len(encodings) == 0:
         return jsonify({"error": "No face found"}), 400
 
     known_faces = load_known_faces()
     results = []
 
-    for encoding in encodings:
-        print(f"Recognizing face with encoding: {encoding}")
+    for i, encoding in enumerate(encodings):
         matched_name = "Unknown"
+        min_dist = 1.0  # distancia inicial grande
+
         for name, known_encoding in known_faces.items():
-            match = face_recognition.compare_faces([known_encoding], encoding, tolerance=0.6)
-            if match[0]:
+            dist = distance.euclidean(known_encoding, encoding)
+            print(f"[Face {i}] Comparing with {name} → Distance: {dist:.4f}")
+
+            if dist < 0.6 and dist < min_dist:
                 matched_name = name
-                break
-        results.append(matched_name)
+                min_dist = dist
+
+        print(f"[Face {i}] Final match: {matched_name} with distance {min_dist:.4f}")
+        results.append({"name": matched_name, "distance": round(min_dist, 4)})
 
     return jsonify({"recognized": results})
-
 
 if __name__ == '__main__':
     app.run(debug=True)
