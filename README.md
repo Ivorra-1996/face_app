@@ -27,14 +27,27 @@ face_app/
 
 ---
 
-## 🚀 Cómo Ejecutar el Proyecto
+## 🔧 Requisitos
 
-### 1. Clonar el repositorio (o crear carpeta)
+- Python 3.10.x
+- Visual Studio con herramientas para C++ (necesario para compilar `dlib`)
+- pip actualizado
+
+---
+
+## 📦 Instalación
+
+1. Cloná este repositorio o copiá los archivos.
+
+2. Instalá las dependencias:
 
 ```bash
-git clone <repo-url>
-cd face_app
+pip install -r requirements.txt
 
 
-## Instalar dependencias
-pip install flask face_recognition opencv-python numpy
+## 🚀 Cómo Ejecutar el Proyecto
+
+
+Ejecutá la API:
+```bash
+python app.py
