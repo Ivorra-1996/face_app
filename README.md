@@ -16,13 +16,14 @@ Este proyecto implementa un sistema de **reconocimiento facial** usando Python, 
 ---
 
 ## 🗂️ Estructura del Proyecto
-
+```text
 face_app/
 ├── app.py # Servidor Flask principal
-├── known_faces/ # Embeddings de personas registradas (archivos .pkl)
-├── uploads/ # Imágenes temporales que se reciben por POST
-├── README.md # Este archivo
-
+├── known_faces/ # Embeddings de personas registradas (.pkl)
+├── uploads/ # Imágenes temporales recibidas por POST
+├── requirements.txt # Dependencias del proyecto
+├── README.md
+```
 
 ---
 
