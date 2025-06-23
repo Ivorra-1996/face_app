@@ -43,7 +43,7 @@ face_app/
 
 ```bash
 pip install -r requirements.txt
-
+```
 
 ## 🚀 Cómo Ejecutar el Proyecto
 
@@ -51,3 +51,4 @@ pip install -r requirements.txt
 Ejecutá la API:
 ```bash
 python app.py
+```
