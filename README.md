@@ -1,17 +1,17 @@
 # 🧠 Face Recognition App (Flask + Python)
 
-Este proyecto implementa un sistema de **reconocimiento facial** usando Python, Flask y la librería `face_recognition`. Permite registrar personas mediante una imagen de su cara, y luego reconocerlas automáticamente en nuevas fotos, incluso con múltiples personas presentes.
+Este proyecto implementa un sistema de **reconocimiento facial en vivo** usando Python, Flask, OpenCV y `face_recognition`. Permite registrar personas mediante una captura directa desde la cámara y luego reconocerlas automáticamente en tiempo real.
 
 ---
 
 ## 📦 Tecnologías y Librerías Utilizadas
 
 - [Python 3.x](https://www.python.org/)
-- [Flask](https://flask.palletsprojects.com/) - Microframework web para el backend
-- [face_recognition](https://github.com/ageitgey/face_recognition) - Librería basada en dlib para detección y reconocimiento facial
-- [OpenCV (opencv-python)](https://pypi.org/project/opencv-python/) - Para procesamiento de imágenes (opcional)
-- [NumPy](https://numpy.org/) - Manipulación de matrices y vectores
-- [Pickle](https://docs.python.org/3/library/pickle.html) - Serialización de datos (para guardar las caras conocidas)
+- [Flask](https://flask.palletsprojects.com/) – Microframework web para el backend
+- [face_recognition](https://github.com/ageitgey/face_recognition) – Librería basada en `dlib` para detección y reconocimiento facial
+- [OpenCV (opencv-python)](https://pypi.org/project/opencv-python/) – Para procesamiento de imágenes y captura de video
+- [Pickle](https://docs.python.org/3/library/pickle.html) – Serialización de datos (para guardar las caras registradas)
+- [SciPy](https://www.scipy.org/) – Usado para calcular distancias entre encodings faciales
 
 ---
 
@@ -32,6 +32,7 @@ face_app/
 - Python 3.10.x
 - Visual Studio con herramientas para C++ (necesario para compilar `dlib`)
 - pip actualizado
+- Cámara web funcional conectada o celular conectado con Iriun Webcam
 
 ---
 
@@ -47,8 +48,40 @@ pip install -r requirements.txt
 
 ## 🚀 Cómo Ejecutar el Proyecto
 
+--- 
 
 Ejecutá la API:
 ```bash
 python app.py
 ```
+---
+
+## 🔍 Funcionalidades
+
+### 📸 Registro de rostros
+
+Registra una nueva persona capturando una imagen desde la cámara:
+
+**Endpoint:** `POST /register_from_frame`  
+**Parámetros (form-data):**
+
+- `name`: Nombre de la persona  
+- `lastname`: Apellido de la persona
+
+**Ejemplo con `curl`:**
+```bash
+curl -X POST http://localhost:5000/register_from_frame \
+  -F "name=Juan" \
+  -F "lastname=Pérez"
+```
+Guarda el embedding facial en el directorio known_faces/.
+
+## 🎥 Stream de video en vivo con reconocimiento
+Visualiza la transmisión en vivo de la cámara con reconocimiento facial en tiempo real:
+
+**Endpoint:** `GET /video_feed`
+Abre en el navegador:
+```bash
+http://localhost:5000/video_feed
+```
+Los nombres reconocidos se mostrarán sobre los rostros detectados en el video. :D 
